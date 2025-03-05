@@ -80,7 +80,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-8">WebSocket Test App</h1>
+      <h1 className="text-3xl font-bold mb-8 text-gray-900">
+        WebSocket Test App
+      </h1>
 
       <div className="w-full max-w-md mb-8 p-6 bg-white rounded-lg shadow-md">
         <div className="mb-4">
@@ -95,7 +97,7 @@ export default function Home() {
             type="text"
             value={serverUrl}
             onChange={(e) => setServerUrl(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border text-gray-900 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -124,7 +126,7 @@ export default function Home() {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder="Type a message..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2 border text-gray-900 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
             <button
@@ -138,7 +140,7 @@ export default function Home() {
       </div>
 
       <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6 h-fit overflow-y-hidden">
-        <h2 className="text-xl font-semibold mb-4">Messages</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-900">Messages</h2>
         <div className="border border-gray-200 rounded-md p-3 h-64 overflow-y-auto bg-gray-50">
           {messages.length === 0 ? (
             <p className="text-gray-500 text-center py-4">No messages yet</p>
