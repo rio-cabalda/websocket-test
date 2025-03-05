@@ -19,24 +19,34 @@ export default function Home() {
       });
 
       socketInstance.on("connect", () => {
+        const timestamp = new Date().toLocaleTimeString();
         setConnected(true);
         setMessages((prev) => [
           ...prev,
-          `Connected to WebSocket server at ${serverUrl}`,
+          `${timestamp}: Connected to WebSocket server at ${serverUrl}`,
         ]);
       });
 
       socketInstance.on("connect_error", (error) => {
-        setMessages((prev) => [...prev, `Connection error: ${error.message}`]);
+        const timestamp = new Date().toLocaleTimeString();
+        setMessages((prev) => [
+          ...prev,
+          `${timestamp}: Connection error: ${error.message}`,
+        ]);
       });
 
       socketInstance.on("disconnect", () => {
+        const timestamp = new Date().toLocaleTimeString();
         setConnected(false);
-        setMessages((prev) => [...prev, "Disconnected from WebSocket server"]);
+        setMessages((prev) => [
+          ...prev,
+          `${timestamp}: Disconnected from WebSocket server`,
+        ]);
       });
 
       socketInstance.on("message", (data) => {
-        setMessages((prev) => [...prev, `Received: ${data}`]);
+        const timestamp = new Date().toLocaleTimeString();
+        setMessages((prev) => [...prev, `${timestamp}: Received: ${data}`]);
       });
 
       setSocket(socketInstance);
@@ -64,7 +74,8 @@ export default function Home() {
   const sendMessage = useCallback(() => {
     if (socket && inputMessage.trim()) {
       socket.emit("message", inputMessage);
-      setMessages((prev) => [...prev, `Sent: ${inputMessage}`]);
+      const timestamp = new Date().toLocaleTimeString();
+      setMessages((prev) => [...prev, `${timestamp} Sent: ${inputMessage}`]);
       setInputMessage("");
     }
   }, [socket, inputMessage]);
@@ -150,12 +161,12 @@ export default function Home() {
                 <li
                   key={index}
                   className={`p-2 rounded-md text-sm ${
-                    msg.startsWith("Sent:")
+                    msg.includes("Sent:")
                       ? "bg-blue-100 text-blue-800"
-                      : msg.startsWith("Received:")
+                      : msg.includes("Received:")
                       ? "bg-green-100 text-green-800"
-                      : msg.startsWith("Error:") ||
-                        msg.startsWith("Connection error:")
+                      : msg.includes("Error:") ||
+                        msg.includes("Connection error:")
                       ? "bg-red-100 text-red-800"
                       : "bg-gray-100 text-gray-800"
                   }`}
