@@ -99,7 +99,7 @@ export default function Home() {
         body: JSON.stringify({}),
       })
         .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then(() => console.log("successfully pinged backend"))
         .catch((error) => console.error("Error:", error));
       console.log("Ping backend");
     }, 600000); // 10 minutes in milliseconds
