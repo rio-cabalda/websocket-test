@@ -89,6 +89,24 @@ export default function Home() {
     };
   }, [socket]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(serverUrl + "/ping", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error:", error));
+      console.log("Ping backend");
+    }, 600000); // 10 minutes in milliseconds
+
+    return () => clearInterval(interval);
+  }, [serverUrl]);
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gray-50">
       <h1 className="text-3xl font-bold mb-8 text-gray-900">
