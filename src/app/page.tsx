@@ -99,9 +99,22 @@ export default function Home() {
         body: JSON.stringify({}),
       })
         .then((response) => response.json())
-        .then(() => console.log("successfully pinged backend"))
-        .catch((error) => console.error("Error:", error));
-      console.log("Ping backend");
+        .then(() => {
+          const timestamp = new Date().toLocaleTimeString();
+          console.log("successfully pinged backend");
+          setMessages((prev) => [
+            ...prev,
+            `${timestamp}: successfully pinged backend`,
+          ]);
+        })
+        .catch((error) => {
+          const timestamp = new Date().toLocaleTimeString();
+          console.error("Error:", error);
+          setMessages((prev) => [
+            ...prev,
+            `${timestamp}: Error pinging backend`,
+          ]);
+        });
     }, 600000); // 10 minutes in milliseconds
 
     return () => clearInterval(interval);
